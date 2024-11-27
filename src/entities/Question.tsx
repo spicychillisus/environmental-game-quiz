@@ -1,14 +1,12 @@
 import Question from "./QuestionClass";
+import QuestionType from "./QuestionType";
 
-type QuestionProps = {
-    question: Question;
-}
 
 const QuestionDisplay = () => {
     return (
-        <div>
-
-        </div>
+        <form>
+            
+        </form>
     )
 }
 
