@@ -9,16 +9,13 @@ const interBold = Inter({});
 let links = [
     { name: "Home", path: "/"},
     { name: "Quiz", path: "/quiz"},
-    { name: "Manage Account", path: "/account"},
-    { name: "Login", path: "/login"},
-    { name: "Register", path: "/register"},
 
 ]
 
 export default function Navbar() {
     return (
-        <nav className="border-gray-400 dark:bg-gray-800 flex justify-center">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg shadow-lg">
+        <nav className="flex justify-center border-solid ">
+            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2 bg-white rounded-lg">
                 {
                     links.map((link, index) => {
                         return (

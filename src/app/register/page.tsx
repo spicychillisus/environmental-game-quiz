@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Navbar from "@/components/self/Navbar";
+import Navbar from "@/components/general/Navbar";
 import pool from "../../../config";
 import { Form, FormDescription, FormField, FormItem, FormMessage, FormLabel, FormControl } from "@/components/ui/form";
 import { Inter } from "next/font/google";

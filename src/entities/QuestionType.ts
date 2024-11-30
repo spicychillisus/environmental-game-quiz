@@ -1,5 +1,8 @@
 import Question from "./QuestionClass";
 
+/**
+ * Different question types generates different types of options and content
+ */
 export default class QuestionType extends Question {
 
     private options: any[];
@@ -25,14 +28,21 @@ export default class QuestionType extends Question {
         // make sure to put the answer inside also
         let qnType = this.getQuestionType();
         
-        switch(qnType) {
-            case "multiple_choice":
+        /**
+         * case 1: multiple choise
+         * case 2: true/false
+         * case 3: open ended
+         * case 4: checkboxes
+         */
+        switch(qnType.toString()) {
+            case "1":
+                this.generateMultipleChoiceOptions(answer);
                 break;
-            case "true_false":
+            case "2":
                 break;
-            case "open_ended":
+            case "3":
                 break;
-            case "checkboxes":
+            case "4":
                 this.generateCheckboxOptions(2, answer);
                 break;
 
@@ -41,7 +51,11 @@ export default class QuestionType extends Question {
 
     private generateRandomOptions() {
         return ""
-    }   
+    }
+    
+    private generateMultipleChoiceOptions(answer: any) {
+        let amountOfOptions = this.numberRandomiser();
+    }
 
     private generateCheckboxOptions(amount: number, answer: any) {
         let options = this.options;
@@ -63,6 +77,7 @@ export default class QuestionType extends Question {
         if (amount = 2) {
             options.push(trueOption);
             options.push(falseOption);
+            this.showOptions();
         } 
         // or else run for loop to generate the options
         // it is randomised, so even i wouldn't know the answer
@@ -71,7 +86,7 @@ export default class QuestionType extends Question {
         }
     }
 
-    public showOptions() {
+    private showOptions() {
         return this.options;
     }
 }
