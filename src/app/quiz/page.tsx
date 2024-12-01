@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { z } from 'zod';
 import pool from "../../../config";
 import { metadata } from "../layout";
-import { questions, questionTypes } from "@/data/questions";
+import { questions, questionTypes, topics } from "@/data/questions";
 
 const inter = Inter({
     weight: "400",
@@ -26,7 +26,7 @@ const interBold = Inter({
     weight: "600",
     style: "normal",
     subsets: ["latin"]
-  })
+})
 
 const QuizPage = () => {
     const [questionAmount , setQuestionAmount] = useState(0);
@@ -47,9 +47,10 @@ const QuizPage = () => {
 
     return (
         <div className="bg-white min-h-screen w-screen">
-            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <Navbar />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <div className="text-center">
-                    <h1 className={`${interBold.className} text-4xl`}>Environmental Quiz Game</h1>
+                    <p className={`${interBold.className} text-2xl`}>Select the topic you wish to learn about</p>
                 </div>
             </div>
         </div>

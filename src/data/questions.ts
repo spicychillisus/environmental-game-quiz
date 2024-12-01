@@ -9,9 +9,20 @@ const questionTypes = {
     3: "Open Ended"
 }
 
-const topics = {
-
-}
+const topics = [
+    {
+        topic: "Climate Change and Mitigation Strategies",
+        description: "This topic focuses on ways to fight climate change, like planting trees, using renewable energy, and switching to electric cars. It also looks at new ideas like capturing carbon from the air and restoring damaged ecosystems. The key is finding long-term, effective ways to reduce greenhouse gases and protect the planet."
+    },
+    {
+        topic: "Environmental Issues and Effects",
+        description: "This topic looks at how human activities affect nature. It includes the downsides of renewable energy, pollution from farming, and how cities can trap heat. It also talks about problems like ocean acidification and how we can better understand and handle these challenges to protect ecosystems."
+    },
+    {
+        topic: "Policies and Global Efforts",
+        description: "This topic is about the rules and agreements countries use to solve environmental problems together. It covers things like reducing deforestation, protecting the ozone layer, and predicting climate changes. It also looks at energy choices and their impact on the environment. These efforts help guide global action for a healthier planet."
+    }
+]
 
 let questions = [
     { 
@@ -198,4 +209,4 @@ let questions = [
     
 ]
 
-export { questions, questionTypes }
+export { questions, questionTypes, topics }
