@@ -8,14 +8,13 @@ const interBold = Inter({});
 
 let links = [
     { name: "Home", path: "/"},
-    { name: "Quiz", path: "/quiz"},
-
+    { name: "Quiz", path: "/quiz"}
 ]
 
 export default function Navbar() {
     return (
-        <nav className="flex justify-center border-solid ">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2 bg-white rounded-lg">
+        <nav className="flex justify-center border-solid  ">
+            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2 bg-white rounded-lg border-black">
                 {
                     links.map((link, index) => {
                         return (
