@@ -9,5 +9,5 @@ import { Button } from "@/components/ui/button";
 import { questions } from '@/data/questions';
 
 export default function QuizPage() {
-
+    return (<h1>hi</h1>)
 }

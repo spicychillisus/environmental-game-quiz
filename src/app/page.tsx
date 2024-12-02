@@ -12,9 +12,7 @@ import { Button } from "@/components/ui/button";
 import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link";
-import { questions, questionTypes, topics } from "@/data/questions";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useRouter } from 'next/router'
+import { topics } from "@/data/questions";
 import { useToast } from "@/hooks/use-toast"
 import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/ui/select";
 import { SelectValue } from "@radix-ui/react-select";
@@ -49,7 +47,8 @@ const QuizHomePage = () => {
     })
 
     const [difficulty, setDifficulty] = useState<string>("easy");
-    const [numOfQn, setNumOfQn] = useState<number>(0);
+    const [numOfQn, setNumOfQn] = useState<number>(8); // lucky number lol
+    const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
 
     function onSubmit(data: z.infer<typeof FormSchema>) {
         toast({
@@ -62,7 +61,19 @@ const QuizHomePage = () => {
         })
     }
 
-    const selectedTopics = [];
+    const handleCheckboxChange = (topic: string) => {
+        setSelectedTopics((prev) =>
+          prev.includes(topic)
+            ? prev.filter((t) => t !== topic) // Remove topic if already selected
+            : [...prev, topic] // Add topic if not selected
+        );
+      };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        console.log('Selected Topics:', selectedTopics);
+    };
+
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let value = parseInt(e.target.value, 10);
@@ -74,23 +85,26 @@ const QuizHomePage = () => {
         setNumOfQn(value); // Update the state
     };
 
-    function selectTopic() {
-
-    }
+    const handleDifficultyChange = (value: string) => {
+        setDifficulty(value); // Update the state
+    };
     
     return (
         <div className="bg-white min-h-screen w-screen">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                <div className="text-center mt-10">
+                <div className="text-center mt-44">
                     <p className={`${interBold.className} text-3xl`}>Select the topic you wish to learn about</p>
                     <p className={`${inter.className} text-sm text-gray-600`}>The topics may look boring, but the questions aren't!</p>
+                    <p className={`${inter.className} text-sm text-gray-600 font-bold`}>These are just for display, so you'll have to choose which ones u want in the settings below</p>
                 </div>
                 <div className="flex flex-row mb-6">
                     {
                         topics.map((topic, index) => {
                             return (
                                 <div key={index} className="flex flex-col">
-                                    <Card className="w-80 h-30 m-5" onClick={selectTopic}>
+                                    <Card 
+                                    className={`w-80 h-30 m-5`} 
+                                    >
                                         <CardHeader>
                                             <CardTitle>{topic.topic}</CardTitle>
                                         </CardHeader>
@@ -112,13 +126,54 @@ const QuizHomePage = () => {
                 <div id="settings-selectors" className="flex justify-center mb-10">
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+                        <FormField 
+                                control={form.control}
+                                name="email"
+                                render={({field}) => (
+                                    <FormItem>
+                                        <FormLabel className="text-xl">Choose the topics</FormLabel>
+                                        <div className="flex flex-col space-y-4">
+                                            <div className="flex items-center space-x-2">
+                                            <Checkbox
+                                                id="ccms"
+                                                checked={selectedTopics.includes("ccms")}
+                                                onCheckedChange={() => handleCheckboxChange("ccms")}
+                                            />
+                                            <label htmlFor="ccms" className="text-sm">
+                                                Climate Change and Mitigation Strategies
+                                            </label>
+                                            </div>
+                                            <div className="flex items-center space-x-2">
+                                            <Checkbox
+                                                id="eie"
+                                                checked={selectedTopics.includes("eie")}
+                                                onCheckedChange={() => handleCheckboxChange("eie")}
+                                            />
+                                            <label htmlFor="eie" className="text-sm">
+                                                Environmental Issues and Effects
+                                            </label>
+                                            </div>
+                                            <div className="flex items-center space-x-2">
+                                            <Checkbox
+                                                id="pge"
+                                                checked={selectedTopics.includes("pge")}
+                                                onCheckedChange={() => handleCheckboxChange("pge")}
+                                            />
+                                            <label htmlFor="pge" className="text-sm">
+                                                Policies and Global Efforts
+                                            </label>
+                                            </div>
+                                        </div>
+                                    </FormItem>
+                                )}
+                            />
                             <FormField 
                                 control={form.control}
                                 name="email"
                                 render={({field}) => (
                                     <FormItem>
                                         <FormLabel>Difficulty</FormLabel>
-                                        <Select onValueChange={field.onChange} defaultValue={field.value} required>
+                                        <Select onValueChange={handleDifficultyChange} defaultValue={difficulty} required>
                                             <FormControl>
                                                 <SelectTrigger>
                                                     <SelectValue placeholder="Choose your difficulty"/>
@@ -156,7 +211,7 @@ const QuizHomePage = () => {
                 </div>
                 <div className="flex justify-center mb-2">
                     <Button className="flex justify-center" type="submit">
-                        <Link href={`/quiz?difficulty=easy&qnamt=${numOfQn}&topics=cc+enviro+pce`} className="flex justify-center">Start Quiz</Link>
+                        <Link href={`/quiz?difficulty=${difficulty}&qnamt=${numOfQn}&topics=${selectedTopics}`} className="flex justify-center">Start Quiz</Link>
                     </Button>
                 </div>
             </div>
